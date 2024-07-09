@@ -4,11 +4,20 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.react-draggable{
+  z-index: 10000;
+}
+.react-draggable-dragging{
+  opacity: 0.7;
+}
+.react-draggable.active{
+  z-index: 11000;
+  box-shadow: 0 2px 3px #0003;
 }

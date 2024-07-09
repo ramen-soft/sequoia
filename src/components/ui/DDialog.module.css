@@ -1,0 +1,43 @@
+.ddialog{
+    background-color: #eee;
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.modal-backdrop{
+    width: 100dvw;
+    height: 100dvh;
+    z-index: 9999;
+    background-image: linear-gradient(20deg, #aaa9,#eee9);
+    left: 0; top: 0; 
+    position: absolute;
+}
+.dialog-title{
+    background-color: #ccc;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    cursor: move;
+}
+.dialog-title-text{
+    flex: 1 1 auto;
+}
+.dialog-title-icon{
+    border: 0;
+    width: 18px;
+    height: 18px;
+    line-height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #bbb;
+    border-radius: 3px;
+    &:hover{
+        background-color: #aaa;
+    }
+}
+.dialog-body{
+    padding: 12px;
+}
