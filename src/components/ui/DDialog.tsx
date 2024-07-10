@@ -1,4 +1,4 @@
-import { MouseEventHandler, PropsWithChildren, useRef } from "react";
+import { PropsWithChildren, useRef } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Rnd } from "react-rnd";
 import styles from './DDialog.module.css';
