@@ -1,6 +1,6 @@
 import { instrumentRegistry } from "./registry";
 
-export class Engine{
+class Engine{
     static instance : Engine;
 
     ctx !: AudioContext;
@@ -50,3 +50,7 @@ export class Engine{
         }
     }
 }
+
+const instance = new Engine();
+
+export default instance;
