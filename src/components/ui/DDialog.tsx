@@ -1,4 +1,4 @@
-import { PropsWithChildren, useRef } from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Rnd } from "react-rnd";
 import styles from './DDialog.module.css';
@@ -7,13 +7,19 @@ const reactDraggableRemoveActive = () => {
     document.querySelectorAll('.react-draggable')?.forEach(rd=>rd.classList.remove('active'));
 }
 
+export type Size = {
+    width: number;
+    height: number;
+}
+
 interface IDialogProps{
     title: string;
     modal ?: boolean;
+    size ?: Size;
     onDialogClose ?: {():void};
 }
 
-export const DDialog = ({title, modal = false, onDialogClose = ()=>{}, children = undefined} : PropsWithChildren<IDialogProps>) => {
+export const DDialog = ({title, modal = false, onDialogClose = ()=>{}, size, children = undefined} : PropsWithChildren<IDialogProps>) => {
     const dialogRef = useRef<Rnd>(null);
 
     const handleClose = (e: React.MouseEvent<HTMLElement>) =>{
@@ -32,6 +38,8 @@ export const DDialog = ({title, modal = false, onDialogClose = ()=>{}, children 
         }
     }
 
+    useEffect(()=>setCurrentAsActive(), []);
+
     return (
         <>
         { modal && <div className={styles['modal-backdrop']}></div> }
@@ -40,7 +48,7 @@ export const DDialog = ({title, modal = false, onDialogClose = ()=>{}, children 
         onClick={setCurrentAsActive}
         onDrag={setCurrentAsActive}
         bounds="window"
-        default={{ x: window.innerWidth/2-200, y: window.innerHeight/2-300, width: 400, height: 300 }}
+        default={{ x: window.innerWidth/2-200, y: window.innerHeight/2-300, width: size?.width||'auto', height: size?.height||'auto' }}
         dragHandleClassName={styles['dialog-title']}
         enableResizing={false}
       >

@@ -5,6 +5,8 @@
     font-size: 12px;
     border-radius: 4px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 .modal-backdrop{
     width: 100dvw;
@@ -40,4 +42,6 @@
 }
 .dialog-body{
     padding: 12px;
+    flex: 1 1 auto;
+    overflow-y: auto;
 }
