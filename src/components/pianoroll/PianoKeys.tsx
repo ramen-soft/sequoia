@@ -10,7 +10,7 @@ const noteList : KeyDef[] = new Array(12 * OCTAVES).fill(0).map((_, i) => {
     : {"type":"white", "pos":i, freq: 0, "y":0}
 });
 
-let blackNotes : any [] = [];
+const blackNotes : KeyDef [] = [];
 
 const whiteNotes = noteList.filter(note=>note.type=="white").map((note, i) => {
     note.y = PIANO_ROLL_TOTAL_HEIGHT - (i*PIANO_KEY_HEIGHT+i) - PIANO_KEY_HEIGHT;
