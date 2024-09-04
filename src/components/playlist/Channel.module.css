@@ -1,0 +1,16 @@
+.channel{
+    display: flex;
+    align-items: center;
+    background-color: #ddd;
+    height: 32px;
+}
+.channel:nth-child(even){
+    background-color: #ccc;
+}
+.channelSteps{
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    height: inherit;
+    gap: 2px;
+}

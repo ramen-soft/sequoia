@@ -24,3 +24,10 @@ export interface Project{
     tracks: TrackDefinition[];
     editingPattern ?: PatternDefinition
 };
+
+export type KeyDef = {
+    type: string;
+    pos: number;
+    freq: number;
+    y: number;
+}

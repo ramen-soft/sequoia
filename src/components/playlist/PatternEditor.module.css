@@ -1,0 +1,52 @@
+.patternEditorWrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.patternChannels{
+    flex: 1 1 auto;
+    display: flex;
+}
+.channelList ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    li{
+        background-color: #ddd;
+        &:nth-child(even){
+            background-color: #ccc;
+        }
+        flex: 1 1 auto;
+        height: 32px;
+        padding: 0 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.channelStepsList{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: var(--channel-step-list-max-width);
+    overflow-x: auto;
+}
+.tool{
+    display: flex;
+    align-items: center;
+    line-height: 12px;
+    font-size: 12px;
+    label{ margin-right: 5px; line-height: 12px; }
+    input{
+        font-size: 12px;
+        border: 1px inset #555;
+        border-radius: 2px;
+    }
+}
+.stepCountInput{
+    width: 25px;
+}

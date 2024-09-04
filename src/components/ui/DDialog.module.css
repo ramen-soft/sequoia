@@ -24,7 +24,13 @@
     cursor: move;
 }
 .dialog-title-text{
+    flex: 0 1 auto;
+}
+.dialog-title-tools{
+    margin-left: 12px;
     flex: 1 1 auto;
+    display: flex;
+    align-items: center;
 }
 .dialog-title-icon{
     border: 0;

@@ -1,0 +1,24 @@
+.sq-piano-roll{
+    /*width: 640px;*/
+    height: 480px;
+    overflow: auto;
+    display: flex;
+}
+.pr-keys{
+    flex: 0 0 auto;
+    width: 120px;
+}
+svg *{ user-select: none; }
+.keys{
+        
+    &.white:hover rect{
+        fill: #ddd;
+    }
+    &.black:hover rect{
+        fill: #777;
+    }
+}
+.pr-score{
+    flex: 1 1 auto;
+    width: 100%;
+}

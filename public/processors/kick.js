@@ -11,7 +11,6 @@ class KickProcessor extends AudioWorkletProcessor {
         this.port.onmessage = (event)=>{
             const { type, data } = event.data;
             if(type === 'play'){
-                console.log(data);
                 this.phase = 0
                 this.currentTime = 0;
             }

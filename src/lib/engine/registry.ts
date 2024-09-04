@@ -13,5 +13,15 @@ export const instrumentRegistry : {[name:string]:{id: string, name: string, proc
         id: 'sequoia/kick',
         name: 'Kick',
         processor: 'processors/kick.js'
+    },
+    "snare": {
+        id: 'sequoia/snare',
+        name: 'Snare',
+        processor: 'processors/snare.js'
+    },
+    "hithat": {
+        id: 'sequoia/hithat',
+        name: 'HitHat',
+        processor: 'processors/hithat.js'
     }
 }

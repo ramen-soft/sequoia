@@ -7,6 +7,8 @@ class Engine{
     initialized : boolean = false;
     instruments : Map<string, AudioWorkletNode> = new Map();
 
+    masterGain !: GainNode;
+
     constructor(){
         if(Engine.instance)
             return Engine.instance;
@@ -18,6 +20,8 @@ class Engine{
         if(!this.initialized){
             console.info('Initializing engine...');
             this.ctx = new AudioContext({sampleRate: 44100});
+            this.masterGain = this.ctx.createGain();
+            this.masterGain.connect(this.ctx.destination);
             this.initialized = true;
         }else{
             console.info('Engine already initialized.');
@@ -45,8 +49,8 @@ class Engine{
     play(instrument: string, frequency: number | number[]){
         const instr = this.instruments.get(instrument);
         if(instr){
+            instr.connect(this.masterGain);
             instr.port.postMessage({type: 'play', data: frequency});
-            instr.connect(this.ctx.destination)
         }
     }
 }

@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useRef } from "react";
+import { PropsWithChildren, ReactElement, useEffect, useRef } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Rnd } from "react-rnd";
 import styles from './DDialog.module.css';
@@ -16,10 +16,11 @@ interface IDialogProps{
     title: string;
     modal ?: boolean;
     size ?: Size;
+    titleBarTools ?: ReactElement;
     onDialogClose ?: {():void};
 }
 
-export const DDialog = ({title, modal = false, onDialogClose = ()=>{}, size, children = undefined} : PropsWithChildren<IDialogProps>) => {
+export const DDialog = ({title, modal = false, titleBarTools, onDialogClose = ()=>{}, size, children = undefined} : PropsWithChildren<IDialogProps>) => {
     const dialogRef = useRef<Rnd>(null);
 
     const handleClose = (e: React.MouseEvent<HTMLElement>) =>{
@@ -55,6 +56,9 @@ export const DDialog = ({title, modal = false, onDialogClose = ()=>{}, size, chi
         <div className={styles.ddialog}>
             <div className={styles['dialog-title']}>
                 <span className={styles['dialog-title-text']}>{title}</span>
+                <div className={styles['dialog-title-tools']}>
+                    {titleBarTools}
+                </div>
                 <button onClick={handleClose} className={styles['dialog-title-icon']}><FaTimes /></button>
             </div>
             <div className={styles['dialog-body']}>

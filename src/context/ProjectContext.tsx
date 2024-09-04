@@ -3,7 +3,7 @@ import { Project } from "../models/models";
 
 const initialState : Project = {
     title: 'dasds',
-    bpm: 72,
+    bpm: 96,
     instruments: [],
     patterns: [
         {
@@ -11,7 +11,7 @@ const initialState : Project = {
             steps: 16,
             channels: [
                 {
-                    instrument: "piano",
+                    instrument: "sequoia/piano",
                     name: 'Channel 01',
                     notes: [],
                     type: "pad"

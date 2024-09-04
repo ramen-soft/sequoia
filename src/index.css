@@ -1,7 +1,14 @@
+*,*:after,*:before{
+  box-sizing: border-box;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+
+  --channel-step-list-gap: 2px;
+  --channel-step-width: 18px;
+  --channel-step-list-max-width: calc(var(--channel-step-width)*16 + var(--channel-step-list-gap)*16);
 
   color-scheme: light dark;
 
@@ -19,5 +26,7 @@
 }
 .react-draggable.active{
   z-index: 11000;
-  box-shadow: 0 2px 3px #0003;
+  &>div{
+    box-shadow: 0 2px 3px #0003;
+  }
 }
