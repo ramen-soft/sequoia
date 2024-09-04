@@ -6,12 +6,11 @@
 }
 .pr-keys{
     flex: 0 0 auto;
-    width: 120px;
 }
 svg *{ user-select: none; }
 .keys{
         
-    &.white:hover rect{
+    &.white:hover path{
         fill: #ddd;
     }
     &.black:hover rect{

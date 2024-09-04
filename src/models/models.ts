@@ -26,7 +26,7 @@ export interface Project{
 };
 
 export type KeyDef = {
-    type: string;
+    type: 'white'|'black';
     pos: number;
     freq: number;
     y: number;

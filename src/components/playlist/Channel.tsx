@@ -20,7 +20,7 @@ export const Channel = ({pattern, channel, stepCount, currentStep} : {pattern: P
         const note = newNotes.find(n=>n.step===step);
         if(!note){
             newNotes.push({
-                note: noteToFreq('C', 5),
+                note: noteToFreq('C', 4),
                 time: {
                     start: stepToMillis(project.bpm, step),
                     end: stepToMillis(project.bpm, step)+50,
@@ -52,7 +52,7 @@ export const Channel = ({pattern, channel, stepCount, currentStep} : {pattern: P
         <div className={styles.channel}>
             <div className={styles.channelSteps}>
             { steps.map((_step, stepIndex) => (
-                <ChannelStep current={currentStep===stepIndex} active={channel.checkpoints?.find(cp=>cp.step==stepIndex)?true:false} key={stepIndex} step={stepIndex} onToggle={(_)=>{ handleChannelChange(stepIndex, _); console.log(_); }}></ChannelStep>
+                <ChannelStep current={currentStep===stepIndex} active={channel.checkpoints?.find(cp=>cp.step==stepIndex)?true:false} key={stepIndex} step={stepIndex} onToggle={(_)=>{ handleChannelChange(stepIndex, _); }}></ChannelStep>
             ))}
             </div>
         </div>
