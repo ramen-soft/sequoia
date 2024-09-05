@@ -1,6 +1,6 @@
 import { posIsBlackKey } from '../../lib/helpers/note-functions';
 import styles from './PianoRoll.module.css'
-import { PIANO_KEY_HEIGHT, PIANO_KEY_WIDTH, PIXELS_PER_BEAT } from "./consts";
+import { PIANO_KEY_HEIGHT, PIANO_KEY_WIDTH } from "./consts";
 
 export const PianoKey = (
         {y, type, keyPos, label, onKey}
@@ -37,7 +37,7 @@ export const PianoKey = (
                     (isBlackKey) && <rect y={y} width={width} height={height} fill={fillColor}></rect>
                 }
                 
-                {type==="white" && <text x={PIANO_KEY_WIDTH-35} y={y+17}>{keyPos} {label}</text>}
+                {type==="white" && <text x={PIANO_KEY_WIDTH-17} y={y+17}>{label}</text>}
             </g>
         </>
     )

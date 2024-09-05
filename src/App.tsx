@@ -1,13 +1,16 @@
 import { useContext, useState } from 'react';
 import './App.css'
-import { ProjectContext } from './context/ProjectContext';
 import { SeqContext } from './context/SeqContext';
 import { PatternEditor } from './components/playlist/PatternEditor';
 import { PianoRoll } from './components/pianoroll/PianoRoll';
+import { useProjectStore } from './states/ProjectState';
 
 function App() {
 
-  const { project, setProject, title } = useContext(ProjectContext);
+  //const { project, setProject, title } = useContext(ProjectContext);
+
+  const project = useProjectStore();
+  const { title } = project;
 
   const { engine } = useContext(SeqContext)
 
@@ -16,7 +19,8 @@ function App() {
   const initializeEngine = ()=>{
     engine.init();
     engine.loadInstruments(['piano','trumpet','kick','snare','hithat']).then(()=>{
-      console.log(engine.instruments);
+      
+      
     });
     setInitialized(true);
   }
@@ -28,8 +32,9 @@ function App() {
   return (
     <>
       {title}
+      
       <button onClick={initializeEngine}>Iniciar</button>
-      <button disabled={!initialized} onClick={playNote}>
+      <button onClick={playNote}>
         Play note
       </button>
 
@@ -44,11 +49,6 @@ function App() {
       <PianoRoll pattern={project.patterns[0]} channel={project.patterns[0].channels[0]}>
                 
       </PianoRoll>
-
-      <button onClick={()=>setProject({...project, ...{editingPattern: project.patterns[0]}})}>Editar</button>
-      
-
-      <button onClick={()=>setProject({...project, ...{patterns: [...project.patterns, ...[{name: 'patatin', channels: [], steps: 5}]], title: 'blu'}})}></button>
     </>
   );
 }

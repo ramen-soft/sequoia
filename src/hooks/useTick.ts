@@ -18,5 +18,5 @@ export const useTick = (onTick : ()=>void) => {
         return ()=>{
             window.removeEventListener('timerTick', handleEvent);
         }
-    })
+    },[])
 }

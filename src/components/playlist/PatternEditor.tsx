@@ -1,5 +1,4 @@
 import { useContext, useState } from "react"
-import { ProjectContext } from "../../context/ProjectContext"
 import { SeqContext } from "../../context/SeqContext"
 import { useTick } from "../../hooks/useTick"
 import { stepToMillis } from "../../lib/helpers/time-functions"
@@ -8,11 +7,11 @@ import { DDialog } from "../ui/DDialog"
 import { Channel } from "./Channel"
 import { ChannelHead } from "./ChannelHead"
 import styles from './PatternEditor.module.css'
+import { useProjectStore } from "../../states/ProjectState"
 
 export const PatternEditor = ({pattern} : {pattern : PatternDefinition}) => {
 
-    const {project, setProject} = useContext(ProjectContext);
-    const [stepCount, setStepCount] = useState(pattern.steps);
+    const project = useProjectStore();
 
     const {engine} = useContext(SeqContext);
 
@@ -21,11 +20,10 @@ export const PatternEditor = ({pattern} : {pattern : PatternDefinition}) => {
     useTick(()=>{
         const ms = stepToMillis(project.bpm, currentStep);
         const notes = pattern.channels.map(chan=>chan.checkpoints?.filter(cp=>cp.time.start==ms).map(note => {
-            note.instrument = chan.instrument;
-            note.note = 440.0;
-            return note;
+            return {...note, note: note.note||440, instrument: chan.instrument}
         })).flat()
         if(notes.length > 0){
+            
             const notesByInstrument = Object.entries(Object.groupBy(notes, (note)=>note.instrument)).map(n=>{return{[n[0]]: n[1]?.map(nn=>nn.note)}}).flat()
             notesByInstrument.forEach((notes:any)=>{
                 const iname = Object.keys(notes)[0];
@@ -37,53 +35,33 @@ export const PatternEditor = ({pattern} : {pattern : PatternDefinition}) => {
     })
 
     const handleClose = () => {
-        setProject({...project, ...{editingPattern: undefined}});
+        project.setActivePattern(undefined)
     }
 
     const handleAddChannel = () => {
-        const patterns = structuredClone(project.patterns);
-        const pat = patterns.find(p=>p.name === pattern.name);
-        if(pat){
-            const { channels } = pat;
-            channels.push({
-                instrument: pattern.channels[0].instrument,
-                name: 'Channel ' + (pattern.channels.length + 1).toString().padStart(2, '0'),
-                notes: [],
-                type: "pad"
-            });
-            setProject({...project, ...{patterns: patterns}})
-        }
+        console.log(pattern);
+        project.addChannel(pattern, {
+            instrument: pattern.channels[0].instrument,
+            name: 'Channel ' + (pattern.channels.length + 1).toString().padStart(2, '0'),
+            notes: [],
+            checkpoints: [],
+            type: "pad"
+        })
     }
 
     const handleInstrumentChange = (channel : ChannelDefinition, instrumentId: string) => {
-        const patterns = structuredClone(project.patterns)
-        const pat = patterns.find(p=>p.name === pattern.name)
-        if(pat){
-            const { channels } = pat;
-            const chan = channels.find(chans=>chans.name==channel.name)
-            if(chan){
-                chan.instrument = instrumentId;
-
-                setProject({...project, ...{patterns: patterns}})
-            }
-        }
+        project.setInstrument(pattern, channel, instrumentId);
     }
 
     const handleChangeSteps = (e : React.ChangeEvent<HTMLInputElement>) => {
         const newStepCount = Number(e.currentTarget?.value);
-        setStepCount(newStepCount)
-        const patterns = structuredClone(project.patterns);
-        const pat = patterns.find(p=>p.name === pattern.name);
-        if(pat){
-            pat.steps = newStepCount;
-            setProject({...project, ...{patterns: patterns}})
-        }
+        project.setPatternLength(pattern, newStepCount);
     }
 
     const tools = <>
         <div className={styles.tool}>
             <label>Steps</label>
-            <input className={styles.stepCountInput} type="text" value={stepCount} onClick={e=>e.currentTarget.selectionEnd=1000} onMouseDown={(e)=>{e.stopPropagation(); } } onInput={handleChangeSteps} />
+            <input className={styles.stepCountInput} type="text" value={pattern.steps} onClick={e=>e.currentTarget.selectionEnd=1000} onMouseDown={(e)=>{e.stopPropagation(); } } onInput={handleChangeSteps} />
         </div>
     </>
 
@@ -103,7 +81,7 @@ export const PatternEditor = ({pattern} : {pattern : PatternDefinition}) => {
                         </div>
                         <div className={styles.channelStepsList}>
                         { pattern.channels.map((channel, i) => (
-                            <Channel key={i} pattern={pattern} channel={channel} stepCount={stepCount} currentStep={currentStep}></Channel>
+                            <Channel key={i} pattern={pattern} channel={channel} stepCount={pattern.steps} currentStep={currentStep}></Channel>
                         ))}
                         </div>
                     </div>

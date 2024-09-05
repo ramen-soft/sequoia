@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import { ProjectContext } from "../../context/ProjectContext";
 import { noteToFreq } from "../../lib/helpers/note-functions";
 import { stepToMillis } from "../../lib/helpers/time-functions";
 import { ChannelDefinition, PatternDefinition } from "../../models/models";
 import styles from './Channel.module.css';
 import { ChannelStep } from "./ChannelStep";
+import { useProjectStore } from "../../states/ProjectState";
 
 export const Channel = ({pattern, channel, stepCount, currentStep} : {pattern: PatternDefinition, channel : ChannelDefinition, stepCount: number, currentStep: number}) => {
 
-    const {project, setProject} = useContext(ProjectContext)
+    const project = useProjectStore();
 
     const [notes, setNotes] = useState<any[]>([]);
 
@@ -16,7 +16,8 @@ export const Channel = ({pattern, channel, stepCount, currentStep} : {pattern: P
 
     
     const handleChannelChange = (step: number, active: boolean) => {
-        const newNotes : any[] = [...notes];
+        const newNotes : any[] = [...channel.checkpoints!];
+        console.log(newNotes);
         const note = newNotes.find(n=>n.step===step);
         if(!note){
             newNotes.push({
@@ -38,14 +39,8 @@ export const Channel = ({pattern, channel, stepCount, currentStep} : {pattern: P
     };
 
     useEffect(()=>{
-        const patterns = structuredClone(project.patterns);
-        const pat = patterns.find(p=>p.name === pattern.name)
-        const chan = pat?.channels.find(c=>c.name===channel.name)
-        if(chan){
-            chan.checkpoints = notes.map(note=>{ note.time.start = stepToMillis(project.bpm, note.step); return note; })
-        }
-        const newProject = {...project, ...{patterns: patterns}}
-        setProject(newProject);
+        const checkpoints = notes.map(note=>{ return {...note, time: {...note.time, start:stepToMillis(project.bpm, note.step)}}; });
+        project.setChannelNotes(pattern, channel, checkpoints);
     }, [notes]);
 
     return (

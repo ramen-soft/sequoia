@@ -1,14 +1,21 @@
-import { useContext, useRef } from "react";
-import { Rnd } from "react-rnd";
+import { DraggableData, Rnd } from "react-rnd";
 import { ChannelDefinition, PatternDefinition } from "../../models/models";
 import { PIANO_KEY_HEIGHT } from "./consts";
 import { freqToPos, keyFreq } from "../../lib/helpers/note-functions";
-import { ProjectContext } from "../../context/ProjectContext";
+import { useProjectStore } from "../../states/ProjectState";
 
-export const PianoScore = ({channel, height, pixelsPerBeat, steps, totalNotes} : {pattern : PatternDefinition, channel : ChannelDefinition, height: number, pixelsPerBeat : number, steps : number, totalNotes: number}) => {
+export const PianoScore = ({pattern, channel, height, pixelsPerBeat, steps, totalNotes} : {pattern : PatternDefinition, channel : ChannelDefinition, height: number, pixelsPerBeat : number, steps : number, totalNotes: number}) => {
 
-    const {project,setProject} = useContext(ProjectContext);
+    const project = useProjectStore();
 
+    const handleDragStop = (evt: Event, drag: DraggableData, index: number) => {
+        const key = 1+totalNotes-Math.round(drag.lastY/PIANO_KEY_HEIGHT);
+        const freq = keyFreq(key);
+        const cp = channel.checkpoints![index];
+        project.setChannelNote(pattern, channel, index, {...cp, ...{note: freq}})
+        
+    }
+    /*
     const updateNote = (cpIndex, yPos)=>{
         let pos = 1+(totalNotes-Math.round(yPos/24));
         console.log('e',pos);
@@ -21,6 +28,7 @@ export const PianoScore = ({channel, height, pixelsPerBeat, steps, totalNotes} :
         const newProject = {...project, ...{patterns: patterns}}
         setProject(newProject);
     }
+    */
 
     return (
         <>
@@ -38,9 +46,9 @@ export const PianoScore = ({channel, height, pixelsPerBeat, steps, totalNotes} :
                     <rect width={steps*pixelsPerBeat/4+1} height="100%" fill="url(#beat)" />
                 </svg>
                 {channel.checkpoints?.map((_cp, i)=>{
-                    console.log(_cp);
+                    const y = 1+(totalNotes-freqToPos(_cp.note)-1)*(PIANO_KEY_HEIGHT+1)
                     return (
-                        <Rnd position={{x: (pixelsPerBeat/4)*_cp.step, y:freqToPos(_cp.note)*PIANO_KEY_HEIGHT}} size={{width: pixelsPerBeat/4, height: PIANO_KEY_HEIGHT}} enableResizing={false} dragGrid={[pixelsPerBeat/4, PIANO_KEY_HEIGHT+1]} bounds="parent" key={i}>
+                        <Rnd onDragStop={(event, data)=>handleDragStop(event, data, i)} position={{x: (pixelsPerBeat/4)*_cp.step, y}} size={{width: pixelsPerBeat/4, height: PIANO_KEY_HEIGHT}} enableResizing={false} dragGrid={[pixelsPerBeat/4, PIANO_KEY_HEIGHT+1]} bounds="parent" key={i}>
                             <div style={{height: PIANO_KEY_HEIGHT, width: pixelsPerBeat/4, backgroundColor: 'green'}}>{freqToPos(_cp.note)}</div>
                         </Rnd>
                     )

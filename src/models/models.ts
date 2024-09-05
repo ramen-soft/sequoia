@@ -23,7 +23,7 @@ export interface Project{
     patterns: PatternDefinition[];
     tracks: TrackDefinition[];
     editingPattern ?: PatternDefinition
-};
+}
 
 export type KeyDef = {
     type: 'white'|'black';
