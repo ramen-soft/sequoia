@@ -14,7 +14,7 @@ export const ChannelHead = ({channel, onInstrumentChange} : {channel : ChannelDe
 
     return (
         <li>
-            <select onChange={handleInstrumentChange}>
+            <select onChange={handleInstrumentChange} value={channel.instrument}>
                 {Object.values(instrumentRegistry).map((entry)=><option value={entry.id} key={entry.id}>{entry.name}</option>)}
             </select>
         </li>

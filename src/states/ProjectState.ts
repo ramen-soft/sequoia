@@ -14,6 +14,7 @@ type ProjectState = {
 
     addChannel: (p: PatternDefinition, c: ChannelDefinition) => void;
     setInstrument: (pattern: PatternDefinition, channel: ChannelDefinition, instrument: string) => void;
+    setPattern: (index: number, pattern: PatternDefinition) => void;
     setPatternLength: (pattern: PatternDefinition, length: number) => void;
     setChannelNotes: (pattern: PatternDefinition, channel: ChannelDefinition, checkpoints: any[]) => void;
     setChannelNote: (pattern: PatternDefinition, channel: ChannelDefinition, checkpointIndex: number, note:any) => void;
@@ -52,6 +53,10 @@ export const useProjectStore = create<ProjectState>((set)=> ({
         if(chan){
             chan.instrument = instrument;
         }
+    })),
+    setPattern: (index, pattern) => set(produce((state: ProjectState) => {
+        const pats = state.patterns;
+        pats.splice(index, 1, pattern);
     })),
     setPatternLength: (pattern, length) => set(produce((state: ProjectState) => {
         const pat = state.patterns.find(pat=>pat.name===pattern.name);

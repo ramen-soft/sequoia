@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { noteToFreq } from "../../lib/helpers/note-functions";
-import { stepToMillis } from "../../lib/helpers/time-functions";
+import { millisPerBeat, stepToMillis } from "../../lib/helpers/time-functions";
 import { ChannelDefinition, PatternDefinition } from "../../models/models";
 import styles from './Channel.module.css';
 import { ChannelStep } from "./ChannelStep";
@@ -25,7 +25,7 @@ export const Channel = ({pattern, channel, stepCount, currentStep} : {pattern: P
                 time: {
                     start: stepToMillis(project.bpm, step),
                     end: stepToMillis(project.bpm, step)+50,
-                    duration: 50
+                    duration: millisPerBeat(project.bpm)/4
                 },
                 step: step
             })
