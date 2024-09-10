@@ -1,0 +1,33 @@
+
+.pattern-list{
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    ul{
+        flex: 1 1 auto;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+        li{
+            background-color: #666;
+            padding: 6px;
+            span.name{
+                color: #ccc;
+            }
+        }
+    }
+    .pattern-list-footer{
+        padding: 4px;
+        display: flex;
+    }
+}
+.patternlistitem{
+    display: flex;
+    align-items: center;
+}
+.name{
+    flex: 1 1 auto;
+    color: #eee;
+}

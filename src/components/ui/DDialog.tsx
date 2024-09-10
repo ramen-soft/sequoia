@@ -49,7 +49,7 @@ export const DDialog = ({title, modal = false, titleBarTools, onDialogClose = ()
         onClick={setCurrentAsActive}
         onDrag={setCurrentAsActive}
         bounds="window"
-        default={{ x: window.innerWidth/2-200, y: window.innerHeight/2-300, width: size?.width||'auto', height: size?.height||'auto' }}
+        default={{ x: window.innerWidth/2-200, y: window.innerHeight/2, width: size?.width||'auto', height: size?.height||'auto' }}
         dragHandleClassName={styles['dialog-title']}
         enableResizing={false}
       >

@@ -1,5 +1,15 @@
 import { instrumentRegistry } from "./registry";
 
+export const NOTE_FREQUENCIES : {[key:string]:number} = {
+    'C':261,
+    'D':293,
+    'E':329,
+    'F':349,
+    'G':392,
+    'A':440,
+    'B':493
+}
+
 class Engine{
     static instance : Engine;
 
