@@ -3,7 +3,7 @@ import styles from './PatternList.module.css'
 export const PatternListItem = ({id, name, onClick} : {id: string, name: string, onClick: React.MouseEventHandler<HTMLDivElement> | undefined}) => {
 
     const {attributes, listeners, setNodeRef} = useDraggable({
-        id: 'draggable',
+        id,
         data: { id, name }
     });
 

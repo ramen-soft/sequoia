@@ -37,8 +37,6 @@ export const PatternList = () => {
                 </li>
             ))}
 
-            <PatternListItem id="blabla" onClick={()=>{}} name="pozi"></PatternListItem>
-
             </ul>
 
             <div className={styles['pattern-list-footer']}>

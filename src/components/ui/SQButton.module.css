@@ -1,0 +1,48 @@
+.button{
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #111;
+    color: #f9f9f9;
+    font-size: .9rem;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 9px;
+    flex: 1 1 auto;
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.171), rgba(255, 255, 255, 0.068));
+    background-blend-mode: multiply;
+    user-select: none;
+
+    &.button--disabled{
+        cursor: not-allowed;
+        background-color: #333;
+        color: #666;
+    }
+
+    &:not(.button--disabled).button--primary{
+        background-color: #333;
+    }
+    &:not(.button--disabled).button--accent{
+        background-color: rgb(185, 7, 96);
+    }
+    &:not(.button--disabled).button--secondary{
+        background-color: #fff;
+        color: #333;
+    }
+    &:not(.button--disabled).button--warn{
+        background-color: rgb(231, 123, 0);
+        color: #333;
+    }
+    &:not(.button--disabled).button--error{
+        background-color: rgb(189, 0, 41);
+    }
+
+    transition: 150ms background-position-y ease, 150ms box-shadow ease;
+
+
+    &:hover:not(.button--disabled){
+        background-position-y: -38px;
+        box-shadow: 0 0 3px #000c;
+    }
+}

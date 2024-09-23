@@ -76,7 +76,7 @@ export const PatternEditor = ({pattern} : {pattern : PatternDefinition}) => {
                         <div className={styles.channelList}>
                             <ul>
                             { pattern.channels.map((channel, i) => (
-                                <ChannelHead channel={channel} key={i} onInstrumentChange={handleInstrumentChange}/>
+                                <ChannelHead onPianoRollClick={()=>project.setPianoRoll(pattern.id, channel.id)} channel={channel} key={i} onInstrumentChange={handleInstrumentChange}/>
                                 /*<li key={i}>{channel.name}</li>*/
                             ))}
                             </ul>

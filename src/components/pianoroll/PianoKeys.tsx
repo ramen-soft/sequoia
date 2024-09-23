@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { KeyDef } from "../../models/models";
-import { OCTAVES, PIANO_KEY_HEIGHT, PIANO_KEY_WIDTH, PIANO_ROLL_TOTAL_HEIGHT, PIXELS_PER_BEAT } from "./consts";
+import { OCTAVES, PIANO_KEY_HEIGHT, PIANO_KEY_WIDTH, PIANO_ROLL_TOTAL_HEIGHT } from "./consts";
 import { keyFreq, keyLabel, posIsBlackKey } from "../../lib/helpers/note-functions";
 import { PianoKey } from "./PianoKey";
 
@@ -53,15 +53,6 @@ export const PianoKeys = ({onKey = ()=>{}} : {onKey : (key: KeyDef | null)=>void
           onKey(null);
         }}
       >
-        <defs>
-            <pattern id="qbeat" width={PIXELS_PER_BEAT/4} height={PIANO_KEY_HEIGHT+1} patternUnits="userSpaceOnUse">
-                <path d={`M ${PIXELS_PER_BEAT/4} 0 L 0 0 0 ${PIANO_KEY_HEIGHT+1}`} fill="none" stroke="lightgray" strokeWidth="0.5" />
-            </pattern>
-            <pattern id="beat" width={PIXELS_PER_BEAT} height={PIANO_KEY_HEIGHT+1} patternUnits="userSpaceOnUse">
-                <rect width={PIXELS_PER_BEAT} height={PIANO_KEY_HEIGHT} fill="url(#qbeat)" />
-                <path d={`M ${PIXELS_PER_BEAT} 0 L 0 0 0 ${PIANO_KEY_HEIGHT+1}`} fill="none" stroke="#555" strokeWidth="1" />
-            </pattern>
-        </defs>
         
         {noteList.map((key) => (
           <PianoKey

@@ -16,6 +16,21 @@
         padding: 4px;
         font-size: 1em;
     }
+    &>.pr-button{
+        border: 0;
+        height: 100%;
+        width: 32px;
+        background-image: url(./piano2.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-color: white;
+        flex: 0 0 auto;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        cursor: pointer;
+        &:hover{ background-color: #fe0; }
+    }
 }
 .channel:nth-child(even){
     background-color: #ccc;

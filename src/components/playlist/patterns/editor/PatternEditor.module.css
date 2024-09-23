@@ -22,7 +22,8 @@
         }
         flex: 1 1 auto;
         height: 32px;
-        padding: 0 5px;
+        padding-right: 5px;
+
         display: flex;
         align-items: center;
         justify-content: center;

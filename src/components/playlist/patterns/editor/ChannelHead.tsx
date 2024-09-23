@@ -3,7 +3,7 @@ import { instrumentRegistry } from "../../../../lib/engine/registry"
 import { ChannelDefinition } from "../../../../models/models"
 import styles from './Channel.module.css'
 
-export const ChannelHead = ({channel, onInstrumentChange} : {channel : ChannelDefinition, onInstrumentChange ?: (channel : ChannelDefinition, instrumentId: string) => void}) => {
+export const ChannelHead = ({channel, onInstrumentChange, onPianoRollClick = ()=>{}} : {channel : ChannelDefinition, onPianoRollClick : React.MouseEventHandler, onInstrumentChange ?: (channel : ChannelDefinition, instrumentId: string) => void}) => {
 
     const handleInstrumentChange = (e : SyntheticEvent<HTMLSelectElement>) => {
         const target = e.currentTarget;
@@ -15,6 +15,7 @@ export const ChannelHead = ({channel, onInstrumentChange} : {channel : ChannelDe
 
     return (
         <li className={styles['channel-head']}>
+            <button className={styles['pr-button']} onClick={onPianoRollClick} />
             <select onChange={handleInstrumentChange} value={channel.instrument}>
                 {Object.values(instrumentRegistry).map((entry)=><option value={entry.id} key={entry.id}>{entry.name}</option>)}
             </select>
